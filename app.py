@@ -197,8 +197,8 @@ def predict():
         return render_template('prediction.html', prediction=None, confidence=None, image_path=None, note="An error occurred during prediction. Please try again.")
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))  # Default to 5000 if PORT is not set
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 10000)), debug=True)
+
 
 
 
