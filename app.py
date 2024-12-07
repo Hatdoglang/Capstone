@@ -52,8 +52,6 @@ class CNN(nn.Module):
         x = self.fc2(x)
         return x
 
-# # Define the CNN model model.pth
-
 # Load the model and fix checkpoint issues
 model_path = "models/cnn_model123.pth"
 class_names = ['Dolichocephalocyrtus', 'Metapocyrtus', 'Orthocyrtus', 'Pachyrhynchus', 'Trachycyrtus']
@@ -110,8 +108,6 @@ def genusdetails(key):
     else:
         return 'Species or Genus not found', 404
 
-    
-    
 # Route for subgenusdetails page
 @app.route('/subgenusdetails/<key>')
 def subgenusdetails(key):
@@ -134,16 +130,9 @@ def subgenusdetails(key):
     else:
         return 'Species or Subgenus not found', 404
 
-
-
-
-
-
 @app.route('/genera')
 def genera():
     return render_template('weevils/genera.html')
-
-
 
 @app.route('/sub_genus')
 def sub_genus():
@@ -208,4 +197,5 @@ def predict():
         return render_template('prediction.html', prediction=None, confidence=None, image_path=None, note="An error occurred during prediction. Please try again.")
 
 if __name__ == '__main__':
-    app.run(port=3000, debug=True)
+    # Use the dynamic port provided by Render
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 3000)), debug=True)
