@@ -52,6 +52,8 @@ class CNN(nn.Module):
         x = self.fc2(x)
         return x
 
+# # Define the CNN model model.pth
+
 # Load the model and fix checkpoint issues
 model_path = "models/cnn_model123.pth"
 class_names = ['Dolichocephalocyrtus', 'Metapocyrtus', 'Orthocyrtus', 'Pachyrhynchus', 'Trachycyrtus']
@@ -108,6 +110,8 @@ def genusdetails(key):
     else:
         return 'Species or Genus not found', 404
 
+    
+    
 # Route for subgenusdetails page
 @app.route('/subgenusdetails/<key>')
 def subgenusdetails(key):
@@ -130,9 +134,16 @@ def subgenusdetails(key):
     else:
         return 'Species or Subgenus not found', 404
 
+
+
+
+
+
 @app.route('/genera')
 def genera():
     return render_template('weevils/genera.html')
+
+
 
 @app.route('/sub_genus')
 def sub_genus():
