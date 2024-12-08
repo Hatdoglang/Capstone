@@ -1,5 +1,5 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-import { getDatabase, ref, set, push } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
+import { initializeApp } from "./firebase-app.js"; // Use local Firebase script
+import { getDatabase, ref, set, push } from "./firebase-database.js"; // Use local Firebase script
 
 // My Firebase configuration
 const firebaseConfig = {
@@ -10,24 +10,27 @@ const firebaseConfig = {
   storageBucket: "capstone-92833.appspot.com",
   messagingSenderId: "824130896942",
   appId: "1:824130896942:web:f2cc74327abd0e9c304bbf",
-  measurementId: "G-L57NFDXD3B"
+  measurementId: "G-L57NFDXD3B",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const database = getDatabase(app);
 
+// Debugging Initialization
+console.log("Firebase initialized:", app.name);
+
 // Function to handle form submission
-document.getElementById('contactForm').addEventListener('submit', function(event) {
+document.getElementById("contactForm").addEventListener("submit", function (event) {
   event.preventDefault(); // Prevent page refresh
 
   // Get form values
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const message = document.getElementById('message').value;
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const message = document.getElementById("message").value;
 
   // Reference to 'contactMessages' in your Firebase Realtime Database
-  const contactRef = ref(database, 'contactMessages/');
+  const contactRef = ref(database, "contactMessages/");
 
   // Create a new entry with a unique key using push()
   const newContactRef = push(contactRef);
@@ -37,14 +40,14 @@ document.getElementById('contactForm').addEventListener('submit', function(event
     fullName: name,
     email: email,
     message: message,
-    timestamp: Date.now() // Add timestamp for the message
+    timestamp: Date.now(), // Add timestamp for the message
   })
-  .then(() => {
-    alert('Message sent successfully!');
-    document.getElementById('contactForm').reset(); // Reset form after submission
-  })
-  .catch((error) => {
-    console.error('Error sending message:', error);
-    alert('There was an error sending your message. Please try again.');
-  });
+    .then(() => {
+      alert("Message sent successfully!");
+      document.getElementById("contactForm").reset(); // Reset form after submission
+    })
+    .catch((error) => {
+      console.error("Error sending message:", error.message);
+      alert(`Error: ${error.message}. Please try again.`);
+    });
 });
